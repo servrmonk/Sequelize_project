@@ -1,0 +1,12 @@
+relations with information 
+ourmain work is to connect our product with our review 
+for each product we have 1000s of review for each product we have one to many relationship 
+so how we will connect this , we need to connect the rating with our product so how can we do this , we will use foreign key for connect this because review will just keep track of which product id i am gonna putting all those reviews 
+
+suppose i want to all the review for product 1 or product 2 whichever
+product id in review
+
+one product has many relations because product has many review
+
+all of those review belongs to that product
+the parent is the product so the review are the child, oneparent have thousands of thousands children u can put it like it that 
