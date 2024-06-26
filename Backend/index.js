@@ -2,14 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const router = require("./router/productRouter");
 
-
 const app = express();
-var corOptions = {
-  origin: "https://localhost:8001",
-};
 
 /* MIDDLEWARE */
-app.use(cors(corOptions));
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));

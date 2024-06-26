@@ -6,7 +6,7 @@ const router = require('express').Router();
 // router.get('/allReviews',reviewController.getAllReviews);
 
 router.post('/addProduct',productController.addProduct);
-router.get('/allProduct',productController.getAllProducts);
+router.get('/allProducts',productController.getAllProducts);
 router.get('/published',productController.getPublishedProduct);
 
 
