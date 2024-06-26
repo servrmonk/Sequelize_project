@@ -23,7 +23,7 @@ const addReview = async (req, res) => {
 
 /* 2. Get All Review */
 const getAllReviews = async (req, res) => {
-  console.log("================Inside getAllreviews=================");
+  
   try {
     const allreview = await Review.findAll({});
     res.status(200).send(allreview);

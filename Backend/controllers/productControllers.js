@@ -2,7 +2,7 @@ const db = require("../models");
 
 // create main model
 const Product = db.products;
-// const Review = db.reviews;
+const Review = db.reviews;
 
 //Main Work
 
@@ -57,10 +57,37 @@ const deleteProduct = async (req, res) => {
 
 // 6. get published product
 
-const getPublishedProduct = async(req,res)=>{
-    const products = await Product.findAll({where:{published:true}})
-    res.status(200).send(products)
-}
+const getPublishedProduct = async (req, res) => {
+  const products = await Product.findAll({ where: { published: true } });
+  res.status(200).send(products);
+};
 
+const getProductReviews = async (req, res) => {
+  try {
+    const data = await Product.findAll({
+      include: [
+        {
+          model: Review, //give me all the review in each product , get all the infor from the review
+          as: "review",
+        },
+      ],
+      where: { id: 2 },
+    });
 
-module.exports = { addProduct, getAllProducts, getOneProduct, updateProduct ,deleteProduct,getPublishedProduct};
+    console.log("Data ===========> ", data);
+    res.status(201).send(data);
+  } catch (err) {
+    console.log("Error is ", err);
+    res.status(500).send({ error: "error in getting productreviews" });
+  }
+};
+//review doesn't have the information that is product_id right now
+module.exports = {
+  addProduct,
+  getAllProducts,
+  getOneProduct,
+  updateProduct,
+  deleteProduct,
+  getPublishedProduct,
+  getProductReviews,
+};

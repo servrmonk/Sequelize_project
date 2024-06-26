@@ -45,5 +45,6 @@ db.reviews.belongsTo(db.products,{
   as:'product'
 
 })
+ //review doesn't have the information that is product_id
 
 module.exports = db;
