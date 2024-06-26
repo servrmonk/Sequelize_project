@@ -1,10 +1,22 @@
 const productController = require('../controllers/productControllers')
+const reviewController = require('../controllers/reviewControllers')
 const router = require('express').Router();
 
-router.post('/addProduct',productController.addProduct)
-router.get('/allProduct',productController.getAllProducts)
-router.get('/published',productController.getPublishedProduct)
-router.get('/:id',productController.getOneProduct)
+/* Product Routes */
+// router.get('/allReviews',reviewController.getAllReviews);
+
+router.post('/addProduct',productController.addProduct);
+router.get('/allProduct',productController.getAllProducts);
+router.get('/published',productController.getPublishedProduct);
+
+
+/* Review Router */
+router.post('/addReview',reviewController.addReview);
+router.get('/allReviews',reviewController.getAllReviews);
+
+/* PARAMS ROUTES */
+router.get('/:id',productController.getOneProduct);
 router.put('/:id',productController.updateProduct);
-router.delete('/:id',productController.deleteProduct)
+router.delete('/:id',productController.deleteProduct);
+
 module.exports = router

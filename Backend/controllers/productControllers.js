@@ -2,9 +2,9 @@ const db = require("../models");
 
 // create main model
 const Product = db.products;
-const Review = db.reviews;
+// const Review = db.reviews;
 
-//Main Word
+//Main Work
 
 //1. Create product
 const addProduct = async (req, res) => {
@@ -16,7 +16,7 @@ const addProduct = async (req, res) => {
   };
   try {
     const product = await Product.create(info);
-    res.status(200).send(product);
+    res.status(201).send(product);
     console.log("Product created ", product);
   } catch (err) {
     res.status(500).send({ message: "Unable to create the product" });
@@ -26,6 +26,7 @@ const addProduct = async (req, res) => {
 
 //2. get all products
 const getAllProducts = async (req, res) => {
+  console.log("Inside getAllProducts");
   let products = await Product.findAll({
     // attributes: ["title", "price"], comment if u want all the info
   });

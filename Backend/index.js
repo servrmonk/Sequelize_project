@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const router = require("./router/productRouter");
+
 
 const app = express();
 var corOptions = {
@@ -18,7 +20,6 @@ app.get("/", (req, res) => {
 });
 
 /* ROUTERS */
-const router = require("./router/productRouter");
 app.use("/api/products", router);
 
 /* PORT */
