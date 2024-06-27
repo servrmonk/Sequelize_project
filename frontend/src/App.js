@@ -4,6 +4,8 @@ import ShowProducts from "./screens/ShowProducts";
 import EditProduct from "./screens/EditProduct";
 import ProductDetail from "./screens/ProductDetail";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
