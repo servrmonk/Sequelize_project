@@ -7,8 +7,12 @@ const Review = db.reviews; //coming from model index.js
 /* 1. Add Review */
 const addReview = async (req, res) => {
   console.log("inside addreview");
+  // Add review by id 
+  const id=req.params.id;
+
   try {
     let data = {
+      product_id:id,
       rating: req.body.rating,
       description: req.body.description,
     };

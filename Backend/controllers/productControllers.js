@@ -62,16 +62,19 @@ const getPublishedProduct = async (req, res) => {
   res.status(200).send(products);
 };
 
+// 7. Connect one to many relations Product and Reviews
+
 const getProductReviews = async (req, res) => {
+  const id = req.params.id;//for dynamic
   try {
-    const data = await Product.findAll({
+    const data = await Product.findOne({ //we are using findAll that is giving me an array but here findOne is giving me an object
       include: [
         {
           model: Review, //give me all the review in each product , get all the infor from the review
           as: "review",
         },
       ],
-      where: { id: 2 },
+      where: { id: id },
     });
 
     console.log("Data ===========> ", data);
