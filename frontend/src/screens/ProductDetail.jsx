@@ -59,6 +59,7 @@ export default function ProductDetail() {
         <h1 className="text-center text-lg">ProductDetail page</h1>
         <hr />
         <Card className="shadow-lg m-2 p-3 rounded" style={{ width: "18rem" }}>
+        <Card.Img src={`http://localhost:3000/${product.image}`} alt="No image available" />
           <Card.Body>
             <Card.Title>Title: {product.title}</Card.Title>
             <Card.Title>Price: ${product.price}</Card.Title>

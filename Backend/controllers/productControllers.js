@@ -4,11 +4,15 @@ const db = require("../models");
 const Product = db.products;
 const Review = db.reviews;
 
+const multer = require("multer");
+const path = require("path");
+
 //Main Work
 
 //1. Create product
 const addProduct = async (req, res) => {
   let info = {
+    image:req.file.path,
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
@@ -27,9 +31,7 @@ const addProduct = async (req, res) => {
 //2. get all products
 const getAllProducts = async (req, res) => {
   console.log("Inside getAllProducts");
-  let products = await Product.findAll({
-    // attributes: ["title", "price"], comment if u want all the info
-  });
+  let products = await Product.findAll({});
   res.status(200).send(products);
 };
 
@@ -65,12 +67,12 @@ const getPublishedProduct = async (req, res) => {
 // 7. Connect one to many relations Product and Reviews
 
 const getProductReviews = async (req, res) => {
-  const id = req.params.id;//for dynamic
+  const id = req.params.id; //for dynamic
   try {
-    const data = await Product.findOne({ //we are using findAll that is giving me an array but here findOne is giving me an object
+    const data = await Product.findOne({
       include: [
         {
-          model: Review, //give me all the review in each product , get all the infor from the review
+          model: Review,
           as: "review",
         },
       ],
@@ -84,7 +86,34 @@ const getProductReviews = async (req, res) => {
     res.status(500).send({ error: "error in getting productreviews" });
   }
 };
-//review doesn't have the information that is product_id right now
+
+// 8. Upload image , using image controller
+const storage = multer.diskStorage({
+  //diskstorage need 2 thing one is destination where image will go req,file and callback fun  in callback null means no error filename is unique date.now() + path.extname(file.originalname) like 21/2/2022.png and 2nd arg of callback is Images (foldername where all image will be there ) here i put all the image where we put and give whichever updload a .  and 2nd thing  means 2nd arg of diskStorage is filename
+  destination: (req, file, cb) => {
+    cb(null, "Image");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: "1000000" }, //limits file size in kb that is 1mb u can put 5,10 anything
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const mimType = fileTypes.test(file.mimetype); //checking the format
+    const extname = fileTypes.test(path.extname(file.originalname)); //if both are matched
+
+    if (mimType && extname) {
+      return cb(null, true);
+    }
+    cb("Give proper files format to upload");
+  },
+  }).single('image') //for api to call this is same as model image means single image u can also pass multiple image like 
+// }).array('images',3)
+
 module.exports = {
   addProduct,
   getAllProducts,
@@ -92,5 +121,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getPublishedProduct,
-  getProductReviews,
+  getProductReviews,upload
 };

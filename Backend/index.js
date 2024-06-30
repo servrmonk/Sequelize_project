@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const router = require("./router/productRouter");
+const path = require('path');
 
 const app = express();
 
@@ -17,6 +18,12 @@ app.get("/", (req, res) => {
 
 /* ROUTERS */
 app.use("/api/products", router);
+
+/* Static Images Folder */
+// app.use('/Images',express.static('./Images'))
+app.use('/Image', express.static(path.join(__dirname, 'Image')));
+
+
 
 /* PORT */
 const PORT = process.env.PORT || 8080;
